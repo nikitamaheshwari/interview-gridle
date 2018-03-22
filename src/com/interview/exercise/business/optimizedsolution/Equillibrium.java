@@ -1,8 +1,10 @@
-package com.interview.exercise.business;
+package com.interview.exercise.business.optimizedsolution;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-//O(n2) approach
+
+//O(n) approach
 public class Equillibrium {
 
 	private int size; //Size of array
@@ -16,22 +18,21 @@ public class Equillibrium {
 	
 	//Method to get Equillibrium Point in Account Transaction 
 	public int getEquibiriumPoint(){ 
-		int i,j;
-		//
-		for ( i=0;i<size;i++){
-			int sumLeft=0;		
-			int sumRight=0;
-			for( j=0;j<i;j++){	
-				sumLeft+=data[j]; 
-			}
-			for( j=i+1;j<size;j++){
-				sumRight+=data[j];
-			}
-			if(sumLeft==sumRight){	//Equillibrium Condition
+		int i;
+		int sumofdata=0;
+		int sumLeft=0;
+		//Sum of all the elements in array 'data'
+		for ( i=0;i<size;i++)
+			sumofdata+=data[i];
+			
+		for( i=0;i<size;i++){	
+				sumofdata-=data[i]; //sum = sum of elements at Left
+			if(sumLeft==sumofdata)	//Equillibrium Condition(When Credit = debit)
 				return i;
-			}
+			
+			sumLeft+=data[i]; //Add the element to Sum of left. 
 		}
-		return 1;
+		return -1;
 	}
 	
 	public static void main(String[] args) throws Exception, IOException {
